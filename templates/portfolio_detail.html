@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ portfolio.title }}</title>
+</head>
+<body>
+    <h1>{{ portfolio.title }}</h1>
+    
+    <p><strong>Client:</strong> {{ portfolio.client }}</p>
+    
+    {% if portfolio.image %}
+        <img src="{{ portfolio.image.url }}" alt="{{ portfolio.title }}" width="600">
+    {% endif %}
+    
+    <p>{{ portfolio.content }}</p>
+    
+    <a href="{% url 'portfolio_list' %}">← Back to Portfolio</a>
+</body>
+</html>

@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -56,9 +57,12 @@ ROOT_URLCONF = 'snow_blog.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        # 'BACKEND': 'django.template.backends.jinja2.Jinja2',
+        # 'DIRS': [],
+        'DIRS': [BASE_DIR / "templates"],  # Set template directory
         'APP_DIRS': True,
         'OPTIONS': {
+            # 'environment': 'django.template.backends.jinja2.environment',
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
@@ -132,5 +136,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # User Settings
 
 AUTH_USER_MODEL = 'main.User'
+
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 
 # End User Settings

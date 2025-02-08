@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Blog</title>
+</head>
+<body>
+    <h1>Welcome to My Blog</h1>
+    
+    {% for blog in blogs %}
+        <div>
+            <h2>{{ blog.title }}</h2>
+            <img src="{{ blog.image.url }}" alt="{{ blog.title }}" width="200">
+            <p>{{ blog.content }}...</p>
+            <a href="#">Read more</a>
+        </div>
+        <hr>
+    {% endfor %}
+</body>
+</html>

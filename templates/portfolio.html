@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portfolio</title>
+  </head>
+  <body>
+    <h1>Portfolio</h1>
+
+    {% for portfolio in portfolios %}
+      <div>
+        <h2><a href="{% url 'portfolio_detail' id=portfolio.id %}">{{ portfolio.title }}</a></h2>
+        <p>
+          <strong>Client:</strong> {{ portfolio.client }}
+        </p>
+        {% if portfolio.image %}
+          <img src="{{ portfolio.image.url }}" alt="{{ portfolio.title }}" width="300" />
+        {% endif %}
+        <p>{{ portfolio.content|truncatewords:30 }}</p>
+        <a href="{% url 'portfolio_detail' id=portfolio.id %}">View Details</a>
+        <hr />
+      </div>
+    {% empty %}
+      <p>No portfolio items available.</p>
+    {% endfor %}
+  </body>
+</html>

@@ -1,5 +1,7 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Blog, Portfolio
+from .models import Blog, Portfolio, Contact
+from django.contrib import messages
+from .forms import ContactForm
 
 # Create your views here.
 
@@ -19,6 +21,16 @@ def portfolio_list(request):
     portfolios = Portfolio.objects.all()
     return render(request, "portfolio.html", {"portfolios": portfolios})
 
+
 def portfolio_detail(request, id):
     portfolio = get_object_or_404(Portfolio, id=id)
-    return render(request, "portfolio_detail.html", {"portfolio": portfolio})
+    form = ContactForm()
+
+    if request.method == "POST":
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            form.save()  # Save to database
+            messages.success(request, "Your message has been sent successfully!")
+            form = ContactForm()  # Reset the form
+
+    return render(request, "portfolio_detail.html", {"portfolio": portfolio, "form": form})

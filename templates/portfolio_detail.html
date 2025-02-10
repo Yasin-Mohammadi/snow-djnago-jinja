@@ -7,15 +7,43 @@
 </head>
 <body>
     <h1>{{ portfolio.title }}</h1>
-    
     <p><strong>Client:</strong> {{ portfolio.client }}</p>
     
     {% if portfolio.image %}
         <img src="{{ portfolio.image.url }}" alt="{{ portfolio.title }}" width="600">
     {% endif %}
-    
+
     <p>{{ portfolio.content }}</p>
-    
+
     <a href="{% url 'portfolio_list' %}">← Back to Portfolio</a>
+
+    <hr>
+
+    <!-- Success message -->
+    {% if messages %}
+        {% for message in messages %}
+            <p style="color: green;">{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+
+    <!-- Contact Form -->
+    <h2>Contact Us About This Project</h2>
+    <form method="post">
+        {% csrf_token %}
+        <p>
+            <label for="id_name">Name:</label><br>
+            {{ form.name }}
+        </p>
+        <p>
+            <label for="id_email">Email:</label><br>
+            {{ form.email }}
+        </p>
+        <p>
+            <label for="id_message">Message:</label><br>
+            {{ form.message }}
+        </p>
+        <button type="submit">Send Message</button>
+    </form>
 </body>
 </html>
+

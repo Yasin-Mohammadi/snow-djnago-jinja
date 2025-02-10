@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Blog, Portfolio, Contact
+from .models import Blog, Portfolio, Setting
 from django.contrib import messages
 from .forms import ContactForm
 
@@ -34,3 +34,18 @@ def portfolio_detail(request, id):
             form = ContactForm()  # Reset the form
 
     return render(request, "portfolio_detail.html", {"portfolio": portfolio, "form": form})
+
+def index(request):
+    blogs = Blog.objects.all()[:9]  # Get the latest 9 blogs
+    portfolios = Portfolio.objects.all()[:9]  # Get the latest 9 portfolios
+
+    # Fetch title and subtitle from the Setting table
+    title = Setting.objects.filter(key="site_title").first()
+    subtitle = Setting.objects.filter(key="site_subtitle").first()
+
+    return render(request, "index.html", {
+        "blogs": blogs,
+        "portfolios": portfolios,
+        "title": title.value if title else "Default Title",
+        "subtitle": subtitle.value if subtitle else "Default Subtitle",
+    })

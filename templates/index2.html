@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+    <section id="blogs">
+        <h2>Latest Blogs</h2>
+        <div>
+            {% for blog in blogs %}
+                <div>
+                    <h3><a href="{% url 'blog_detail' slug=blog.slug %}">{{ blog.title }}</a></h3>
+                    {% if blog.image %}
+                        <img src="{{ blog.image.url }}" alt="{{ blog.title }}" width="200">
+                    {% endif %}
+                    <p>{{ blog.content|truncatewords:20 }}</p>
+                    <a href="{% url 'blog_detail' slug=blog.slug %}">Read More</a>
+                </div>
+                <hr>
+            {% empty %}
+                <p>No blogs available.</p>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section id="portfolios">
+        <h2>Latest Portfolio Projects</h2>
+        <div>
+            {% for portfolio in portfolios %}
+                <div>
+                    <h3><a href="{% url 'portfolio_detail' id=portfolio.id %}">{{ portfolio.title }}</a></h3>
+                    {% if portfolio.image %}
+                        <img src="{{ portfolio.image.url }}" alt="{{ portfolio.title }}" width="200">
+                    {% endif %}
+                    <p>{{ portfolio.content|truncatewords:20 }}</p>
+                    <a href="{% url 'portfolio_detail' id=portfolio.id %}">View Project</a>
+                </div>
+                <hr>
+            {% empty %}
+                <p>No portfolio items available.</p>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}
